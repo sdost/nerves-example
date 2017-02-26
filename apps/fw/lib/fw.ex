@@ -13,7 +13,8 @@ defmodule Fw do
     children = [
       supervisor(Phoenix.PubSub.PG2, [Nerves.PubSub, [poolsize: 1]]),
       worker(Task, [fn -> init_kernel_modules() end], restart: :transient, id: Nerves.Init.KernelModules),
-      worker(Task, [fn -> init_network() end], restart: :transient, id: Nerves.Init.Network)
+      worker(Task, [fn -> init_network() end], restart: :transient, id: Nerves.Init.Network),
+      worker(GpioTest.LedTest, []),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

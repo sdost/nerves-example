@@ -29,7 +29,7 @@ defmodule Fw.Mixfile do
     [mod: {Fw, []}, applications: applications(Mix.env)]
   end
 
-  defp applications(:prod), do: [:nerves_interim_wifi | general_apps()]
+  defp applications(:prod), do: [:nerves_interim_wifi, :elixir_ale] ++ general_apps()
   defp applications(_), do: general_apps()
 
   defp general_apps, do: [:logger, :runtime_tools, :ui]
@@ -39,7 +39,8 @@ defmodule Fw.Mixfile do
       {:nerves, "~> 0.4"},
       {:nerves_interim_wifi, "~> 0.1.1", only: :prod},
       {:dummy_nerves, in_umbrella: true, only: [:dev, :test]},
-      {:ui, in_umbrella: true}
+      {:ui, in_umbrella: true},
+      {:elixir_ale, "~> 0.5.7", only: :prod}
     ]
   end
 
